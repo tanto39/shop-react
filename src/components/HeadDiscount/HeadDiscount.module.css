@@ -1,0 +1,39 @@
+.discountSection {
+  color: #fff;
+  min-height: 600px;
+  background: url('/public/images/discount.jpg');
+}
+
+.contentWrapper {
+  margin: 0 auto;
+  padding: 80px 0 0 0;
+  display: flex;
+  max-width: 1360px;
+  flex-direction: column;
+  justify-content: start;
+}
+.contentWrapper button{
+  width: 215px;
+  margin: 40px 0 0 0;
+}
+
+@media (max-width: 991px) {
+  .contentWrapper {
+    max-width: 90%;
+    margin-bottom: 10px;
+  }
+}
+
+.discountTitle {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 106px;
+}
+
+@media (max-width: 991px) {
+  .discountTitle {
+    max-width: 100%;
+    font-size: 40px;
+    line-height: 49px;
+  }
+}

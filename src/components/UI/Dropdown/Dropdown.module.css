@@ -1,0 +1,58 @@
+/* Dropdown.module.css */
+
+.dropdownContainer {
+  position: relative;
+}
+
+.dropdown {
+  width: 176px;
+    line-height: 20px;
+    padding: 8px 8px 8px 16px;
+    border: none;
+    outline: 1px solid var(--grey-divider, #ddd);
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+  background: url('/public/images/arrow.svg') no-repeat center center;
+  width: 20px;
+  height: 20px;
+}
+.arrowOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownList {
+  list-style: none;
+  padding: 16px;
+  margin: 0;
+  border: 1px solid var(--grey-divider, #ddd);
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  color: #8B8B8B;
+  z-index: 1;
+}
+
+.dropdownListOpen {
+  display: block;
+  width: 168px;
+}
+
+.dropdownListItem {
+  padding: 1px 0;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.dropdownListItem:hover {
+  color: var(--txt-black, #282828);
+}

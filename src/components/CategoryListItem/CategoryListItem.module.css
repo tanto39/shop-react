@@ -1,0 +1,36 @@
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 248px;
+  cursor: pointer;
+}
+.itemHome {
+  width: 316px;
+}
+@media (max-width: 991px) {
+  .categoryItem, .itemHome {
+    width: 100%;
+    margin-bottom: 32px;
+  }
+}
+.imgWrap{
+  border-radius: 12px;
+  overflow: hidden;
+}
+.imgBlock{
+  width: 200%;
+  height: 350px;
+  margin: 0 -50%;
+  border-radius: 12px;
+}
+.categoryImage {
+  height: 350px;
+  margin: 0 auto;
+}
+.categoryTitle {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 26px;
+}

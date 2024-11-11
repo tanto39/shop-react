@@ -1,0 +1,28 @@
+/* Checkbox.module.css */
+
+.checkbox {
+  width: 36px;
+  height: 36px;
+  outline: 1px solid var(--grey-divider, #ddd);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.checkbox.checked {
+  background-color: var(--green-color, #339933);
+  outline: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  display: none;
+  background: url('/public/images/checkbox.svg') center center no-repeat;
+}
+
+.checkbox.checked .checkmark {
+  display: block;
+}

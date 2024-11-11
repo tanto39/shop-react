@@ -1,0 +1,42 @@
+.contactSection {
+  justify-content: end;
+  padding: 0 40px 80px;
+}
+
+.infoGrid {
+  display: flex;
+  gap: 32px;
+  justify-content: end;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 991px) {
+  .contactSection {
+    padding: 0 20px;
+  }
+  .infoGrid {
+    flex-direction: column;
+  }
+}
+
+.socialIcons {
+  display: flex;
+  gap: 16px;
+  width: 102px;
+}
+
+.socialIcon {
+  width: 43px;
+  height: 43px;
+}
+
+.map {
+  width: 100%;
+  border-radius: 12px;
+  height: 350px;
+  overflow: hidden;
+}
+
+.map iframe {
+  border: none;
+}
