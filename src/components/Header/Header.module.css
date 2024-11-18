@@ -54,12 +54,15 @@
 .numberCircle {
   background-color: var(--green-color, #339933);
   border-radius: 50%;
-  width: 10px;
+  min-width: 10px;
   height: 10px;
-  padding: 9px;
+  padding: 8px;
   color: #fff;
   font: 600 12px / 0.9 Montserrat, Roboto, Helvetica, sans-serif;
   position: absolute;
   left: -5px;
   top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

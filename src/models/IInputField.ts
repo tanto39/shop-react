@@ -11,3 +11,9 @@ export const inputFields: IInputField[] = [
   { id: "phone", type: "tel", placeholder: "Phone number" },
   { id: "email", type: "email", placeholder: "Email" },
 ];
+
+export interface IFormInputs {
+  name: string;
+  phone: string;
+  email: string;
+}

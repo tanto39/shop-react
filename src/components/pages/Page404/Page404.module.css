@@ -3,26 +3,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  margin-top: 32px;
 }
 
 .imageContainer {
   display: flex;
   align-items: center;
   gap: 16px;
-  justify-content: start;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
 @media (max-width: 991px) {
   .imageContainer {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
 
 .sideImage {
-  aspect-ratio: 0.73;
-  object-fit: contain;
-  object-position: center;
   width: 179px;
   fill: var(--green, #393);
   align-self: stretch;
@@ -30,12 +28,8 @@
 }
 
 .centerImage {
-  aspect-ratio: 1.11;
-  object-fit: contain;
-  object-position: center;
   width: 300px;
   align-self: stretch;
-  min-width: 240px;
   margin: auto 0;
 }
 
@@ -43,11 +37,9 @@
   display: flex;
   margin-top: 32px;
   width: 664px;
-  max-width: 100%;
   flex-direction: column;
-  font-family: Montserrat, sans-serif;
   text-align: center;
-  justify-content: start;
+  justify-content: center;
 }
 
 .textWrapper {
@@ -55,6 +47,11 @@
   width: 100%;
   flex-direction: column;
   justify-content: start;
+}
+
+.textContainer button {
+  width: 209px;
+  margin: 32px auto 0;
 }
 
 @media (max-width: 991px) {
@@ -89,16 +86,10 @@
   .description {
     max-width: 100%;
   }
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  .sideImage {
+    width: 20%;
+  }
+  .centerImage {
+    width: 30%;
+  }
 }

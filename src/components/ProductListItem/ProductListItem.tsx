@@ -1,22 +1,46 @@
-import React from "react";
+import React, { FC, MouseEvent } from "react";
 import styles from "./ProductListItem.module.css";
 import ProductPrice from "../ProductPrice/ProductPrice";
+import ButtonUI from "../UI/ButtonUI/ButtonUI";
 import { IProduct } from "../../models/IProcuct";
 import { useNavigate } from "react-router-dom";
 import SalePercent from "../UI/SalePercent/SalePercent";
 import { SERVER_URL } from "../../constants";
+import { useAppDispatch } from "../../store/helpers";
+import { setCart } from "../../store/slices/cart";
+import { useCheckCart } from "../../hooks/useCheckCart";
 
 interface ProductListItemProps {
   product: IProduct;
 }
 
-const ProductListItem: React.FC<ProductListItemProps> = ({ product }) => {
+const ProductListItem: FC<ProductListItemProps> = ({ product }) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const inCart = useCheckCart(product);
+
+  const addToCart = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const productCart = { ...product, quantity: 1 };
+    dispatch(setCart(productCart));
+  };
 
   return (
     <article className={styles.ProductListItem} onClick={() => navigate("/product/" + product.id)}>
       <div className={styles.imgWrap}>
-        <img loading="lazy" src={SERVER_URL + product.image} alt={product.title} className={styles.productImage} />
+        <div className={styles.imgBlock}>
+          <img loading="lazy" src={SERVER_URL + product.image} alt={product.title} className={styles.productImage} />
+        </div>
+        <div className={styles.addToCart}>
+          {inCart ? (
+            <ButtonUI btnClass="btnAdded">Added</ButtonUI>
+          ) : (
+            <ButtonUI btnClass="btnGreen" onClick={(event) => addToCart(event)}>
+              Add to cart
+            </ButtonUI>
+          )}
+        </div>
       </div>
       <div className={styles.productInfo}>
         <h2 className={styles.productName}>{product.title}</h2>

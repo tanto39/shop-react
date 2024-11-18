@@ -4,8 +4,7 @@
   white-space: nowrap;
   padding: 15px 32px;
   margin-bottom: 16px;
-  font-size: 20px;
-  line-height: 26px;
+  font: 500 20px / 26px Montserrat, Roboto, Helvetica, sans-serif;
 }
 
 @media (max-width: 991px) {

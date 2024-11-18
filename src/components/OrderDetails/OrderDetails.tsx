@@ -15,24 +15,24 @@ const OrderDetails: FC<OrderDetailsProps> = ({ itemCount, totalAmount }) => {
   };
 
   return (
-    <section className={styles.OrderDetails}>
+    <section className={styles.orderDetails}>
       <div className={styles.orderSummary}>
         <h1 className={styles.orderTitle}>Order details</h1>
         <div className={styles.orderInfo}>
           <p className={styles.itemCount}>{itemCount} items</p>
           <div className={styles.priceSummary}>
             <span className={styles.totalLabel}>Total</span>
-            <span className={styles.totalAmount}>{totalAmount}</span>
+            <span className={styles.totalAmount}>${totalAmount}</span>
           </div>
         </div>
       </div>
-      <form className={styles.OrderDetails}>
+      <form className={styles.form}>
         <div className={styles.formInputs}>
           {inputFields.map((field) => (
-            <InputUI field={field} />
+            <InputUI key={field.id} field={field} />
           ))}
         </div>
-        <ButtonUI btnClass="btnWhite" onClick={(event) => sendForm(event)}>
+        <ButtonUI btnClass="btnGreen" onClick={(event) => sendForm(event)}>
           Order
         </ButtonUI>
       </form>

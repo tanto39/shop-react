@@ -11,8 +11,29 @@
 }
 
 .imgWrap {
-  width: 200%;
   height: 313px;
+  position: relative;
+}
+
+.addToCart {
+  position: absolute;
+  display: none;
+  width: 100%;
+  bottom: 16px;
+  margin: 0 auto;
+}
+
+.ProductListItem:hover .addToCart {
+  display: flex;
+  justify-content: center;
+}
+.addToCart button{
+  width: 284px;
+  margin: 0 auto;
+}
+
+.imgBlock {
+  width: 200%;
   margin: 0 -50%;
   border-bottom: 1px solid var(--grey-divider, #ddd);
 }

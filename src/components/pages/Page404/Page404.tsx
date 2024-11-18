@@ -22,7 +22,7 @@ const Page404: React.FC = () => {
             Please go back to the homepage.
           </p>
         </div>
-        <ButtonUI btnClass="btnGreen" onClick={() => navigate("/")}>Check out</ButtonUI>
+        <ButtonUI btnClass="btnGreen" onClick={() => navigate("/")}>Go home</ButtonUI>
       </section>
     </main>
   );

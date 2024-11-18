@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useState } from "react";
 import styles from "./Product.module.css";
 import QuantityControl from "../../UI/QuantityControl/QuantityControl";
 import ProductPrice from "../../ProductPrice/ProductPrice";
@@ -7,13 +7,25 @@ import SalePercent from "../../UI/SalePercent/SalePercent";
 import { useProduct } from "../../../hooks/useProduct";
 import Loader from "../../UI/Loader/Loader";
 import { SERVER_URL } from "../../../constants";
+import { useAppDispatch } from "../../../store/helpers";
+import { useCheckCart } from "../../../hooks/useCheckCart";
+import { setCart } from "../../../store/slices/cart";
 
 const Product: React.FC = () => {
   const { product, loading, error } = useProduct();
+  const [quantity, setQuantity] = useState(1);
 
-  const addToCart = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const dispatch = useAppDispatch();
+  const inCart = useCheckCart(product);
+
+  const changeCart = async () => {
+    const productCart = { ...product, quantity: quantity };
+    dispatch(setCart(productCart));
   };
+
+  const onQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+  }
 
   return (
     <main className="section">
@@ -33,11 +45,15 @@ const Product: React.FC = () => {
               </div>
             </div>
             <div className={styles.actionContainer}>
-              <QuantityControl />
+              <QuantityControl onChange={onQuantityChange} disabled={inCart}/>
               <div className={styles.addToCartButton}>
-                <ButtonUI btnClass="btnGreen" onClick={(event) => addToCart(event)}>
-                  Add to cart
-                </ButtonUI>
+                {inCart ? (
+                  <ButtonUI btnClass="btnAdded">Added</ButtonUI>
+                ) : (
+                  <ButtonUI btnClass="btnGreen" onClick={() => changeCart()}>
+                    Add to cart
+                  </ButtonUI>
+                )}
               </div>
             </div>
             <div className={styles.descriptionContainer}>

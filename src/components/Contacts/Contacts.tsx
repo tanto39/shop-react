@@ -1,5 +1,5 @@
 import React from "react";
-import { InfoContact } from "../InfoContact/InfoContact";
+import { InfoContact } from "../UI/InfoContact/InfoContact";
 import styles from "./Contacts.module.css";
 import HeadBlock from "../HeadBlock/HeadBlock";
 

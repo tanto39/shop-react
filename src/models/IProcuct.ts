@@ -10,7 +10,7 @@ export interface IProduct {
   categoryId: number;
   createdAt: string,
   updatedAt: string,
-  quantity?: number;
+  quantity: number;
 }
 
 export type IProductUrlParam = {
