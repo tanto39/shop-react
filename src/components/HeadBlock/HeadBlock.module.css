@@ -63,3 +63,6 @@
   padding: 3px 15px;
   color: #8b8b8b;
 }
+.all:hover {
+  color: var(--txt-black, #282828);
+}

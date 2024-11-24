@@ -13,6 +13,10 @@
   padding: 32px;
 }
 
+.errorPopup{
+  background: red;
+}
+
 .overlay {
   opacity: 0;
   position: fixed;

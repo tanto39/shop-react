@@ -6,6 +6,7 @@ import categorySlice from "./slices/category";
 import filterSlice from "./slices/filter";
 import sortSlice from "./slices/sort";
 import cartSlice from "./slices/cart";
+import messageSlice from "./slices/message";
 
 const rootReducer = combineReducers({
   categories: categoriesSlice,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   product: productSlice,
   filter: filterSlice,
   sort: sortSlice,
-  cart: cartSlice
+  cart: cartSlice,
+  message: messageSlice
 });
 
 const store = configureStore({

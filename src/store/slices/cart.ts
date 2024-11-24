@@ -1,7 +1,10 @@
 import React from "react";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../helpers";
 import { IProduct } from "../../models/IProcuct";
+import { IOrderData } from "../../components/OrderDetails/OrderDetails";
+import { sendForm } from "../../api/sendForm";
+import { SERVER_URL } from "../../constants";
 
 export interface ICart {
   countItems: number;
@@ -9,11 +12,15 @@ export interface ICart {
   products: IProduct[]
 }
 
-export interface ICartSlice {
+export interface ICartSlice {  
+  loadingSend: boolean;
+  errorSend: string | null;
   cart: ICart
 }
 
 export const InitialState: ICartSlice = {
+  loadingSend: false,
+  errorSend: null,
   cart: {
     countItems: 0,
     totalPrice: 0,
@@ -21,35 +28,50 @@ export const InitialState: ICartSlice = {
   }
 };
 
-export const setCart = (product: IProduct) => async (dispach: AppDispatch) => {
-  dispach(cartSlice.actions.setCart(product));
+export const setCart = (products: IProduct[]) => async (dispach: AppDispatch) => {
+  dispach(cartSlice.actions.setCart(products));
 };
+
+export const sendOrder = createAsyncThunk(
+  'cart/order',
+  async(orderData: IOrderData, thunkAPI) => {
+    const sendResult = await sendForm(orderData, SERVER_URL + "/order/send");
+    return sendResult;
+  }
+);
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState: InitialState,
   reducers: {
-    setCart(state, action: PayloadAction<IProduct>) {
-      state.cart.products.forEach((product, i) => {
-        if (product.id == action.payload.id) {
-          state.cart.products.splice(i, 1);
-        }
-      });
+    setCart(state, action: PayloadAction<IProduct[]>) {
+      let totalPrice = 0;
+      let countItems = 0;
 
-      if (action.payload.quantity > 0 ) {
-        state.cart.products = [...state.cart.products, action.payload];
-      }
-      
-      state.cart.totalPrice = 0;
-      state.cart.countItems = 0;
-
-      state.cart.products.forEach((product) => {
+      action.payload.forEach((product) => {
         const price = ( product.discont_price ? product.discont_price : product.price ) * product.quantity;
-        state.cart.totalPrice = state.cart.totalPrice + price;
-        state.cart.countItems = state.cart.countItems + product.quantity;
+        totalPrice = totalPrice + price;
+        countItems = countItems + product.quantity;
       });
+
+      state.cart.products = action.payload;
+      state.cart.countItems = countItems;
+      state.cart.totalPrice = totalPrice;
     }
   },
+  extraReducers: (builder) => {
+    builder.addCase(sendOrder.fulfilled, (state, action) => {
+      state.loadingSend = false;
+    })
+    .addCase(sendOrder.pending, (state, action) => {
+      state.loadingSend = true;
+      state.errorSend = null;
+    })
+    .addCase(sendOrder.rejected, (state, action) => { 
+      state.loadingSend = false; 
+      state.errorSend = action.error.message || 'Failed to send';
+    });
+  }, 
 });
 
 export default cartSlice.reducer;

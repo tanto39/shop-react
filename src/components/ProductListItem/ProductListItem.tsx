@@ -6,7 +6,7 @@ import { IProduct } from "../../models/IProcuct";
 import { useNavigate } from "react-router-dom";
 import SalePercent from "../UI/SalePercent/SalePercent";
 import { SERVER_URL } from "../../constants";
-import { useAppDispatch } from "../../store/helpers";
+import { useAppDispatch, useAppSelector } from "../../store/helpers";
 import { setCart } from "../../store/slices/cart";
 import { useCheckCart } from "../../hooks/useCheckCart";
 
@@ -18,12 +18,14 @@ const ProductListItem: FC<ProductListItemProps> = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const inCart = useCheckCart(product);
+  const { cart } = useAppSelector((state) => state.cart);
 
   const addToCart = async (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     const productCart = { ...product, quantity: 1 };
-    dispatch(setCart(productCart));
+    let products = [...cart.products, productCart];
+    dispatch(setCart(products));
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import styles from "./Product.module.css";
 import QuantityControl from "../../UI/QuantityControl/QuantityControl";
 import ProductPrice from "../../ProductPrice/ProductPrice";
@@ -7,7 +7,7 @@ import SalePercent from "../../UI/SalePercent/SalePercent";
 import { useProduct } from "../../../hooks/useProduct";
 import Loader from "../../UI/Loader/Loader";
 import { SERVER_URL } from "../../../constants";
-import { useAppDispatch } from "../../../store/helpers";
+import { useAppDispatch, useAppSelector } from "../../../store/helpers";
 import { useCheckCart } from "../../../hooks/useCheckCart";
 import { setCart } from "../../../store/slices/cart";
 
@@ -17,10 +17,20 @@ const Product: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const inCart = useCheckCart(product);
+  const { cart } = useAppSelector((state) => state.cart);
+
+  useEffect(() => {
+    cart.products.forEach((productCartItem) => {
+      if(productCartItem.id == product.id) {
+        setQuantity(productCartItem.quantity);
+      }
+    })
+  },[cart.products, product]);
 
   const changeCart = async () => {
     const productCart = { ...product, quantity: quantity };
-    dispatch(setCart(productCart));
+    let products = [...cart.products, productCart];
+    dispatch(setCart(products));
   };
 
   const onQuantityChange = (newQuantity: number) => {
@@ -45,7 +55,7 @@ const Product: React.FC = () => {
               </div>
             </div>
             <div className={styles.actionContainer}>
-              <QuantityControl onChange={onQuantityChange} disabled={inCart}/>
+              <QuantityControl quantity={quantity} onChange={onQuantityChange} disabled={inCart}/>
               <div className={styles.addToCartButton}>
                 {inCart ? (
                   <ButtonUI btnClass="btnAdded">Added</ButtonUI>

@@ -1,8 +1,9 @@
 import React from "react";
 import { IFormInputs } from "../models/IInputField";
 import { SERVER_URL } from "../constants";
+import { IOrderData } from "../components/OrderDetails/OrderDetails";
 
-export const sendForm = async (data: IFormInputs, url: string) => {
+export const sendForm = async (data: IFormInputs | IOrderData, url: string) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -13,10 +14,8 @@ export const sendForm = async (data: IFormInputs, url: string) => {
       throw new Error("Network response was not ok");
     }
     const result = await response.json();
-    alert("Success send");
     return result;
   } catch (error) {
-    alert('error ' + error);
-    throw new Error("Network response was not ok");
+    throw new Error("Error" + error);
   }
 };

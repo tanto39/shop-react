@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../helpers";
 
 export interface IMessage {
   type: string;
   title: string;
-  message: string;
+  message: ReactNode;
 }
 
 export interface IMessageSlice {

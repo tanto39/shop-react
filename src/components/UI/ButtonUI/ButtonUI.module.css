@@ -22,7 +22,7 @@
   background-color: var(--green-color, #339933);
   color: #fff;
 }
-.btnSubmitted {
+.btnSubmitted, .btnSubmitted:hover {
   background-color: #f1f3f4;
   color: var(--green-color, #339933);
 }

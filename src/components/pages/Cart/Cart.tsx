@@ -17,7 +17,7 @@ const Cart: React.FC = () => {
       {cart.products.length > 0 ? (
         <div className={styles.shoppingCart}>
           <CardProducts products={cart.products} />
-          <OrderDetails itemCount={cart.countItems} totalAmount={cart.totalPrice} />
+          <OrderDetails cart={cart} />
         </div>
       ) : (
         <div className={styles.noItems}>

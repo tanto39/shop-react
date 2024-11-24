@@ -21,12 +21,7 @@ function App() {
           ))}
         </Routes>
         <Contacts/>
-        <MessageModal type="S" title="Congratulations!">
-          {<div>
-            <p>Your order has been successfully placed on the website.</p>
-            <p>A manager will contact you shortly to confirm your order.</p>
-          </div>}
-        </MessageModal>
+        <MessageModal/>
       </div>
     </BrowserRouter>
   );

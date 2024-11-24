@@ -1,26 +1,35 @@
 import React from "react";
 import styles from "./MessageModal.module.css";
-import { IMessage } from "../../store/slices/message";
+import { IMessage, setMessage } from "../../store/slices/message";
+import { useAppDispatch, useAppSelector } from "../../store/helpers";
 
-interface IMessageModalProps {
-  type: string,
-  title: string,
-  children: React.ReactNode;
-}
+const MessageModal: React.FC = () => {
+  const { message } = useAppSelector((state) => state.message);
+  const dispatch = useAppDispatch();
 
-const MessageModal: React.FC<IMessageModalProps> = ({ type, title, children }) => {
+  const closeModal = async () => {
+    const messageEmpty: IMessage = {
+      type: "",
+      title: "",
+      message: "",
+    };
+    dispatch(setMessage(messageEmpty));
+  };
+
   return (
     <div>
-      <section className={styles.popup}>
-        <div className={styles.content}>
-          <h2 className={styles.title}>{title}</h2>
-          <div className={styles.message}>
-            {children}
-          </div>
+      {message.type && (
+        <div>
+          <section className={`${styles.popup} ${message.type == 'E' && styles.errorPopup}`}>
+            <div className={styles.content}>
+              <h2 className={styles.title}>{message.title}</h2>
+              <div className={styles.message}>{message.message}</div>
+            </div>
+            <div className={styles.close} onClick={closeModal}></div>
+          </section>
+          <div className={styles.overlay} onClick={closeModal}></div>
         </div>
-        <div className={styles.close}></div>
-      </section>
-      <div className={styles.overlay}></div>
+      )}
     </div>
   );
 };

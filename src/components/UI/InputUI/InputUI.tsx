@@ -20,6 +20,7 @@ const InputUI: React.FC<IInputProps> = ({ field, register }) => {
         placeholder={field.placeholder}
         className={styles.inputField}
         aria-label={field.placeholder}
+        required
         {...(register ? register(field.id) : {})}
       />
     </div>

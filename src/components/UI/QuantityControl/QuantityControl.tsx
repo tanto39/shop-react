@@ -3,24 +3,22 @@ import styles from "./QuantityControl.module.css";
 
 interface IQuantityControlProps {
   disabled?: boolean,
+  quantity: number,
   onChange: (quantity: number) => void
 }
 
-const QuantityControl: React.FC<IQuantityControlProps> = ({disabled, onChange}) => {
-  const [quantity, setQuantity] = useState(1);
+const QuantityControl: React.FC<IQuantityControlProps> = ({disabled, quantity, onChange}) => {
 
   const handleDecrement = () => {
     if (quantity > 1 && !disabled) {
       const newQuantity = quantity - 1;
-      setQuantity(newQuantity); 
       onChange(newQuantity);
     }
   };
 
   const handleIncrement = () => {
     if (disabled) return
-    const newQuantity = quantity + 1; 
-    setQuantity(newQuantity); 
+    const newQuantity = quantity + 1;
     onChange(newQuantity);
   };
 
@@ -28,7 +26,6 @@ const QuantityControl: React.FC<IQuantityControlProps> = ({disabled, onChange}) 
     if (disabled) return
     const value = parseInt(event.target.value, 10);
     if (!isNaN(value) && value > 0) {
-      setQuantity(value);
       onChange(value);
     }
   };
