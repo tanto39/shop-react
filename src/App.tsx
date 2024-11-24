@@ -8,9 +8,6 @@ import { useProducts } from "./hooks/useProducts";
 import MessageModal from "./components/MessageModal/MessageModal";
 
 function App() {
-  // Это первичный запрос для запуска остановленного сервиса в render.com
-  useProducts();
-
   return (
     <BrowserRouter>
       <div className="page_wrap">
