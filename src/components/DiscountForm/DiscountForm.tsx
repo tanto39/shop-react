@@ -53,7 +53,7 @@ const DiscountForm: React.FC = () => {
             ))}
           </div>
           <div className={styles.btnWrap}>
-            {successSend ? (
+            {successSend || loadingSend ? (
               <ButtonUI btnClass="btnSubmitted">Request Submitted</ButtonUI>
             ) : (
               <ButtonUI btnClass="btnWhite">Get a discount</ButtonUI>

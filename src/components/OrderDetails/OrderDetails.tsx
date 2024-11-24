@@ -72,7 +72,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ cart }) => {
             <InputUI key={field.id} field={field} register={register} />
           ))}
         </div>
-        {isSended ? (
+        {isSended || loadingSend ? (
           <ButtonUI btnClass="btnAdded">The Order is Placed</ButtonUI>
         ) : (
           <ButtonUI btnClass="btnGreen">Order</ButtonUI>
