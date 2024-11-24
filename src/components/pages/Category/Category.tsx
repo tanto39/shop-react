@@ -1,5 +1,5 @@
 import React from "react";
-import HeadBlock from "../../HeadBlock/HeadBlock";
+import HeadBlock from "../../UI/HeadBlock/HeadBlock";
 import Filter from "../../Filter/Filter";
 import ProductList from "../../ProductList/ProductList";
 import { useCategory } from "../../../hooks/useCategory";

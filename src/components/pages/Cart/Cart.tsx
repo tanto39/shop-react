@@ -1,5 +1,5 @@
 import React from "react";
-import HeadBlock from "../../HeadBlock/HeadBlock";
+import HeadBlock from "../../UI/HeadBlock/HeadBlock";
 import styles from "./Cart.module.css";
 import CardProducts from "../../CartProducts/CartProducts";
 import OrderDetails from "../../OrderDetails/OrderDetails";

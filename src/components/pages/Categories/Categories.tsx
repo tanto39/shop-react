@@ -1,5 +1,5 @@
 import React from "react";
-import HeadBlock from "../../HeadBlock/HeadBlock";
+import HeadBlock from "../../UI/HeadBlock/HeadBlock";
 import CategoryList from "../../CategoryList/CategoryList";
 import { useCategories } from "../../../hooks/useCategories";
 import Loader from "../../UI/Loader/Loader";

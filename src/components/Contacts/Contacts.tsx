@@ -1,7 +1,7 @@
 import React from "react";
 import { InfoContact } from "../UI/InfoContact/InfoContact";
 import styles from "./Contacts.module.css";
-import HeadBlock from "../HeadBlock/HeadBlock";
+import HeadBlock from "../UI/HeadBlock/HeadBlock";
 
 export const Contacts: React.FC = () => {
   return (
