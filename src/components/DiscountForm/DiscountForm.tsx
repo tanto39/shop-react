@@ -26,7 +26,7 @@ const DiscountForm: React.FC = () => {
     messageSet.message = (
       <div>
         <p>{successSend}</p>
-        <p>Your order has been successfully placed on the website.</p>
+        <p>Your discount request has been successfully placed on the website.</p>
         <p>A manager will contact you shortly to confirm your order.</p>
       </div>
     );

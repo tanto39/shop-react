@@ -15,7 +15,7 @@ export interface IMessageSlice {
 export const InitialState: IMessageSlice = {
   message: {
     type: '',
-    title: 'Congratulations!',
+    title: '',
     message: '',
   }
 };

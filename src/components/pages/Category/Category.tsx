@@ -4,9 +4,16 @@ import Filter from "../../Filter/Filter";
 import ProductList from "../../ProductList/ProductList";
 import { useCategory } from "../../../hooks/useCategory";
 import Loader from "../../UI/Loader/Loader";
+import { useNavigate } from "react-router-dom";
+import ErrorBlock from "../../UI/ErrorBlock/ErrorBlock";
 
 const Category: React.FC = () => {
   const { category, products, loading, error } = useCategory();
+  const navigate = useNavigate();
+
+  if (error === "Error: 404") {
+    navigate('/404');
+  }
 
   return (
     <main className="section">
@@ -14,10 +21,10 @@ const Category: React.FC = () => {
       <Filter />
       {loading ? (
         <Loader />
-      ) : products ? (
+      ) : products.length > 0 ? (
         <ProductList products={products} />
       ) : (
-        error && <p>{error}</p>
+        error && <ErrorBlock error={error} />
       )}
     </main>
   );

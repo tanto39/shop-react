@@ -10,6 +10,8 @@ import { SERVER_URL } from "../../../constants";
 import { useAppDispatch, useAppSelector } from "../../../store/helpers";
 import { useCheckCart } from "../../../hooks/useCheckCart";
 import { setCart } from "../../../store/slices/cart";
+import { useNavigate } from "react-router-dom";
+import ErrorBlock from "../../UI/ErrorBlock/ErrorBlock";
 
 const Product: React.FC = () => {
   const { product, loading, error } = useProduct();
@@ -18,6 +20,12 @@ const Product: React.FC = () => {
   const dispatch = useAppDispatch();
   const inCart = useCheckCart(product);
   const { cart } = useAppSelector((state) => state.cart);
+
+  const navigate = useNavigate();
+
+  if (error === "Error: 404") {
+    navigate('/404');
+  }
 
   useEffect(() => {
     cart.products.forEach((productCartItem) => {
@@ -41,7 +49,7 @@ const Product: React.FC = () => {
     <main className="section">
       {loading ? (
         <Loader />
-      ) : product ? (
+      ) : product.id ? (
         <article className={styles.productContainer}>
           <section className={styles.gallery}>
             <img loading="lazy" src={SERVER_URL + product.image} alt={product.title} className={styles.productImage} />
@@ -58,7 +66,7 @@ const Product: React.FC = () => {
               <QuantityControl quantity={quantity} onChange={onQuantityChange} disabled={inCart}/>
               <div className={styles.addToCartButton}>
                 {inCart ? (
-                  <ButtonUI btnClass="btnAdded">Added</ButtonUI>
+                  <ButtonUI btnClass="btnAdded" onClick={() => navigate('/cart')}>Added</ButtonUI>
                 ) : (
                   <ButtonUI btnClass="btnGreen" onClick={() => changeCart()}>
                     Add to cart
@@ -76,7 +84,7 @@ const Product: React.FC = () => {
           </section>
         </article>
       ) : (
-        error && <p>{error}</p>
+        error && <ErrorBlock error={error} />
       )}
     </main>
   );
