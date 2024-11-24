@@ -14,7 +14,7 @@ export const sendForm = async (data: IFormInputs | IOrderData, url: string) => {
       throw new Error("Network response was not ok");
     }
     const result = await response.json();
-    return result;
+    return result.message;
   } catch (error) {
     throw new Error("Error" + error);
   }

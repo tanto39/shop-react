@@ -1,40 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./DiscountForm.module.css";
 import ButtonUI from "../UI/ButtonUI/ButtonUI";
 import InputUI from "../UI/InputUI/InputUI";
 import { IFormInputs, inputFields } from "../../models/IInputField";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SERVER_URL } from "../../constants";
-import { sendForm } from "../../api/sendForm";
-import { useAppDispatch } from "../../store/helpers";
+import { useAppDispatch, useAppSelector } from "../../store/helpers";
 import { IMessage, setMessage } from "../../store/slices/message";
+import { clearSend, sendDiscount, setSend } from "../../store/slices/discount";
+import Loader from "../UI/Loader/Loader";
 
 const DiscountForm: React.FC = () => {
   const { register, handleSubmit } = useForm<IFormInputs>();
   const dispatch = useAppDispatch();
-  const [isSended, setIsSended] = useState<boolean>(false);
+  const messageSet: IMessage = {} as IMessage;
+  const { loadingSend, errorSend, successSend, onceSend } = useAppSelector((state) => state.discount);
 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-    const messageSet: IMessage = {} as IMessage;
-    if (isSended) return;
-    try {
-      const sendResult = await sendForm(data, SERVER_URL + "/sale/send");
-      messageSet.type = "S";
-      messageSet.title = "Congragulations!";
-      messageSet.message = (
-        <div>
-          <p>Your discount request has been successfull.</p>
-          <p>A manager will contact you shortly to confirm your order.</p>
-        </div>
-      );
-      setIsSended(true);
-    } catch (error: any) {
-      messageSet.type = "E";
-      messageSet.title = "Error";
-      messageSet.message = <p>{error.message}</p>;
-    }
-    dispatch(setMessage(messageSet));
+    if (successSend) return;
+    dispatch(sendDiscount(data));
   };
+
+  if (successSend && !onceSend) {
+    messageSet.type = "S";
+    messageSet.title = "Success!";
+    messageSet.message = (
+      <div>
+        <p>{successSend}</p>
+        <p>Your order has been successfully placed on the website.</p>
+        <p>A manager will contact you shortly to confirm your order.</p>
+      </div>
+    );
+    dispatch(setSend());
+    dispatch(setMessage(messageSet));
+  }
+
+  if (errorSend) {
+    messageSet.type = "E";
+    messageSet.title = "Error";
+    messageSet.message = <p>{errorSend}</p>;
+    dispatch(clearSend());
+    dispatch(setMessage(messageSet));
+  }
 
   return (
     <section className={styles.discountForm}>
@@ -47,11 +53,12 @@ const DiscountForm: React.FC = () => {
             ))}
           </div>
           <div className={styles.btnWrap}>
-            {isSended ? (
+            {successSend ? (
               <ButtonUI btnClass="btnSubmitted">Request Submitted</ButtonUI>
             ) : (
               <ButtonUI btnClass="btnWhite">Get a discount</ButtonUI>
             )}
+            {loadingSend && <Loader />}
           </div>
         </form>
       </div>

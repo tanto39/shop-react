@@ -7,6 +7,7 @@ import filterSlice from "./slices/filter";
 import sortSlice from "./slices/sort";
 import cartSlice from "./slices/cart";
 import messageSlice from "./slices/message";
+import discountSlice from "./slices/discount";
 
 const rootReducer = combineReducers({
   categories: categoriesSlice,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   filter: filterSlice,
   sort: sortSlice,
   cart: cartSlice,
-  message: messageSlice
+  message: messageSlice,
+  discount: discountSlice
 });
 
 const store = configureStore({

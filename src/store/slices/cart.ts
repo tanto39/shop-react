@@ -15,12 +15,14 @@ export interface ICart {
 export interface ICartSlice {  
   loadingSend: boolean;
   errorSend: string | null;
+  successSend: string | null;
   cart: ICart
 }
 
 export const InitialState: ICartSlice = {
   loadingSend: false,
   errorSend: null,
+  successSend: null,
   cart: {
     countItems: 0,
     totalPrice: 0,
@@ -30,6 +32,10 @@ export const InitialState: ICartSlice = {
 
 export const setCart = (products: IProduct[]) => async (dispach: AppDispatch) => {
   dispach(cartSlice.actions.setCart(products));
+};
+
+export const clearSend = () => async (dispach: AppDispatch) => {
+  dispach(cartSlice.actions.clearSend());
 };
 
 export const sendOrder = createAsyncThunk(
@@ -57,18 +63,25 @@ export const cartSlice = createSlice({
       state.cart.products = action.payload;
       state.cart.countItems = countItems;
       state.cart.totalPrice = totalPrice;
+    },
+    clearSend(state) {
+      state.successSend = null;
+      state.errorSend = null;
     }
   },
   extraReducers: (builder) => {
     builder.addCase(sendOrder.fulfilled, (state, action) => {
       state.loadingSend = false;
+      state.successSend = action.payload;
     })
     .addCase(sendOrder.pending, (state, action) => {
       state.loadingSend = true;
       state.errorSend = null;
+      state.successSend = null;
     })
     .addCase(sendOrder.rejected, (state, action) => { 
       state.loadingSend = false; 
+      state.successSend = null;
       state.errorSend = action.error.message || 'Failed to send';
     });
   }, 
