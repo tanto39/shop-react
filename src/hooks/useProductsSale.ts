@@ -7,12 +7,12 @@ import { useSort } from "./useSort";
 export function useProductsSale() {
   const { products, loading, error } = useProducts();
 
-  const productsFilter = useFilter(products);
-  const productsSort = useSort(productsFilter);
+  const productsDisc = useMemo(() => {
+    return products.filter((product) => product.discont_price && product.discont_price < product.price);
+  }, [products]);
 
-  const productsSale = useMemo(() => {
-    return productsSort.filter((product) => product.discont_price && product.discont_price < product.price);
-  }, [productsSort]);
+  const productsFilter = useFilter(productsDisc);
+  const productsSale = useSort(productsFilter);
 
   return { productsSale, loading, error };
 }
