@@ -1,7 +1,5 @@
 import React, { useMemo } from "react";
 import { useProducts } from "./useProducts";
-import { IProduct } from "../models/IProcuct";
-import { useFilter } from "./useFilter";
 import { useSort } from "./useSort";
 
 export function useProductsSale() {
@@ -11,8 +9,7 @@ export function useProductsSale() {
     return products.filter((product) => product.discont_price && product.discont_price < product.price);
   }, [products]);
 
-  const productsFilter = useFilter(productsDisc);
-  const productsSale = useSort(productsFilter);
+  const productsSale = useSort(productsDisc);
 
   return { productsSale, loading, error };
 }

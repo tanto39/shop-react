@@ -1,12 +1,12 @@
 import React from "react";
 import HeadBlock from "../UI/HeadBlock/HeadBlock";
 import ProductList from "../ProductList/ProductList";
-import { useProductsSale } from "../../hooks/useProductsSale";
 import Loader from "../UI/Loader/Loader";
 import ErrorBlock from "../UI/ErrorBlock/ErrorBlock";
+import { useProductsSaleHome } from "../../hooks/useProductsSaleHome";
 
 const Sale: React.FC = () => {
-  const { productsSale, loading, error } = useProductsSale();
+  const { productsSale, loading, error } = useProductsSaleHome();
 
   return (
     <section className="section">
